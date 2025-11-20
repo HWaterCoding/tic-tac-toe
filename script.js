@@ -2,22 +2,49 @@
 // Focus on no global Variables, or at least not where alternatives are possible.
 // DON'T WORRY ABOUT DOM/HTML RIGHT NOW, JUST MAKE THE GAME IN THE CONSOLE TO START
 
-// Create a "gameboard" object
-// Store the gameboard as an array within gameboard object
-// To create the gameboard, use the same nested for loop method as we used in the etch-a-sketch project, to create a 3 x 3 grid of squares.
+
 // Create a getBoard variable as a function to call the current state of the board array once populated via nested for loop
+function Gameboard(){
 
+    const rows = 3;
+    const columns = 3;
+    const board = [];
 
+    // (check etch-a-sketch to review how to do this properly)
+    for(let i = 0; i < rows; i++){
+        // add row to npoard array
+        for(let j = 0; j < columns; j++){
+            // add column to board array
+        };
+    };
 
-// Wrap gameboard in an IIFE () to create a singular instance
+    // retrieve current state of gameboard
+    const getBoard = () => board;
+
+    // Alter the value of the square on the board clicked somehow
+    const placeChoice = 
+
+    // console.log() current value and status of board to the console so we can see how its working
+    // (WILL DELETE ONCE UI CREATED)
+    const printBoard = 
+
+    // return these 3 functions so we can call them in the outerscope/within other functions
+    return { getBoard, placeChoice, renderBoard };
+
+};
+
+// Wrap gameboard in an IIFE () to create a singular instance ???
 
 
 
 
 // Object to control the flow/logic of the game
-// This should NOT be an IIFE(). 
+function Squares(){
 
-// Create a player object as well to differentiate user from computer, and who is X / O.
+}
+
+
+
 // Don't worry about user inputs for now; just call game logic functions with whichever argument you need
 
 
@@ -26,7 +53,24 @@
 // Store a function in this object that renders the gameboard to the webpage
 //  
 
+function GameController(playerOne, playerTwo = "Computer"){
 
+    // retrieve current status of gameboard()
+
+
+    // default value of square will be 0. When clicked by playerOne, it will be 1. When clicked by playerTwo, it will be 2.
+    const players = [
+        {name: playerOne, choice: 1},
+        {name: playerTwo, choice: 2}
+    ];
+
+    //need a function here to determine who's turn it currently is.
+    
+
+    // function to play a single round (1 turn) and check if there's a winner yet.
+    // if there is no winner, then switch who's turn it is and return the updated board.
+
+}
 
 
 
