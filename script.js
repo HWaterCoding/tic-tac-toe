@@ -1,3 +1,7 @@
+
+
+
+
 // Basic JS Pseudocode
 // Focus on no global Variables, or at least not where alternatives are possible.
 // DON'T WORRY ABOUT DOM/HTML RIGHT NOW, JUST MAKE THE GAME IN THE CONSOLE TO START
@@ -23,6 +27,10 @@ function Gameboard(){
 
     // Alter the value of the square on the board clicked somehow
     const placeChoice = 
+    //pass in the selected square/cell and check it's value.
+    //if it's value is === 0, then we can change it.
+    //add an if() that if it's !not === 0, return nothing and end the exeuction.
+
 
     // console.log() current value and status of board to the console so we can see how its working
     // (WILL DELETE ONCE UI CREATED)
@@ -40,7 +48,19 @@ function Gameboard(){
 
 // Object to control the flow/logic of the game
 function Squares(){
+    //default value of any square on the board will be until changed.
+    let value = 0;
 
+    //function to take player choice as param and change value of cell to the value of the player
+    const changeValue = (playerValue) => {
+        value = playerValue;
+    }
+
+
+    const getValue = () => value;
+
+
+    return { changeValue, getValue };
 }
 
 
@@ -53,10 +73,12 @@ function Squares(){
 // Store a function in this object that renders the gameboard to the webpage
 //  
 
-function GameController(playerOne, playerTwo = "Computer"){
+function GameController(playerOne = username, playerTwo = "Computer"){
+    //to take username input from html and store as playerOne name
+    const username = document.getElementById("username");
 
     // retrieve current status of gameboard()
-
+    const board = Gameboard();
 
     // default value of square will be 0. When clicked by playerOne, it will be 1. When clicked by playerTwo, it will be 2.
     const players = [
@@ -65,8 +87,19 @@ function GameController(playerOne, playerTwo = "Computer"){
     ];
 
     //need a function here to determine who's turn it currently is.
-    
+    let currentPlayer = players[0];
 
+    const switchPlayers = () => {
+        if(currentPlayer === players[0]){
+            currentPlayer = players[1];
+        } else {
+            currentPlayer = players[0];
+        }
+    }
+
+    const getCurrentPlayer = () => currentPlayer;
+
+    
     // function to play a single round (1 turn) and check if there's a winner yet.
     // if there is no winner, then switch who's turn it is and return the updated board.
 
@@ -79,7 +112,7 @@ function GameController(playerOne, playerTwo = "Computer"){
 // Page loads with gameboard pre-made in background
 // Prompt user with a modal to enter their "player name" and then pick whether they are X's or O's
 // Assign proper selection to user and the opposite to the computer
-// The game begins, all gameboard squares/inputs need to be emptied. 
+// The game begins, all gameboard squares/inputs need to be emptied.
 // When clicked, each square needs to check whether that square is already populated
 // if already populated, then return an error and end execution
 // if not already populated, store value of who clicked it (user OR computer)
