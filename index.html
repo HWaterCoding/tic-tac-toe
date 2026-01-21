@@ -9,18 +9,25 @@
 </head>
 <body>
     
-    <div class="overlay">
-        <div class="modal">
+    <div id="overlay">
+        <div id="modal">
             <label for="username">Your Name:</label>
-            <input type="text" id="username">
+            <input type="text" id="username" required>
 
             <p>Do you want to be X's or O's?</p>
-            <label for="xRadioButton">X</label>
-            <input type="radio" name="xOrO" id="xRadioButton">
-            <label for="oRadioButton">O</label>
-            <input type="radio" name="xOrO" id="oRadioButton">
+            <div id="radioBtns">
+                <label for="xRadioButton">X</label>
+                <input type="radio" name="xOrO" id="xRadioButton">
+                <label for="oRadioButton">O</label>
+                <input type="radio" name="xOrO" id="oRadioButton">
+            </div>
         </div>
     </div>
+
+    <div class="gridBoard">
+
+    </div>
+
 
     <!-- Add second modal here for when the game is over to restart/reset the game -->
 

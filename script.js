@@ -1,32 +1,41 @@
 
+const gridBoard = document.getElementById("gridBoard");
+const xBtn = document.getElementById("xRadioButton");
+const oBtn = document.getElementById("oRadioButton");
+const usernameInput = document.getElementById("username");
 
 
-
-// Basic JS Pseudocode
-// Focus on no global Variables, or at least not where alternatives are possible.
-// DON'T WORRY ABOUT DOM/HTML RIGHT NOW, JUST MAKE THE GAME IN THE CONSOLE TO START
-
-
-// Create a getBoard variable as a function to call the current state of the board array once populated via nested for loop
-function Gameboard(){
-
+//object to store the gameboard itself as an array
+const Gameboard = (function(){
     const rows = 3;
     const columns = 3;
     const board = [];
 
-    // (check etch-a-sketch to review how to do this properly)
+    // create a 3x3 grid of buttons and append them to the gridBoard div to create the tic-tac-toe board
     for(let i = 0; i < rows; i++){
-        // add row to npoard array
+        const row = [];
         for(let j = 0; j < columns; j++){
-            // add column to board array
-        };
-    };
+            row.push(0);
+        }
+        board.push(row);
+    }
+        
+    console.log(board);
 
     // retrieve current state of gameboard
-    const getBoard = () => board;
+    function getBoard(){
+        return board;
+    };
 
     // Alter the value of the square on the board clicked somehow
-    const placeChoice = 
+    function placeChoice(){
+        if(choice === 0){
+
+        } 
+        else {
+            return;
+        }
+    };
     //pass in the selected square/cell and check it's value.
     //if it's value is === 0, then we can change it.
     //add an if() that if it's !not === 0, return nothing and end the exeuction.
@@ -34,21 +43,25 @@ function Gameboard(){
 
     // console.log() current value and status of board to the console so we can see how its working
     // (WILL DELETE ONCE UI CREATED)
-    const printBoard = 
+    // const printBoard = 
 
-    // return these 3 functions so we can call them in the outerscope/within other functions
-    return { getBoard, placeChoice, renderBoard };
+    function resetBoard(){
+
+    }
+
+    
+
+    return { getBoard, placeChoice, resetBoard };
+
+})();
+
+function RenderBoard(){
 
 };
 
-// Wrap gameboard in an IIFE () to create a singular instance ???
-
-
-
-
-// Object to control the flow/logic of the game
+// Factory to control the flow/logic of the game
 function Squares(){
-    //default value of any square on the board will be until changed.
+    //default value of any square on the board will be 0 until changed.
     let value = 0;
 
     //function to take player choice as param and change value of cell to the value of the player
@@ -56,7 +69,7 @@ function Squares(){
         value = playerValue;
     }
 
-
+    
     const getValue = () => value;
 
 
@@ -73,9 +86,9 @@ function Squares(){
 // Store a function in this object that renders the gameboard to the webpage
 //  
 
-function GameController(playerOne = username, playerTwo = "Computer"){
+function GameController(playerOne = usernameInput, playerTwo = "Computer"){
     //to take username input from html and store as playerOne name
-    const username = document.getElementById("username");
+    // const username = document.getElementById("username");
 
     // retrieve current status of gameboard()
     const board = Gameboard();
@@ -86,9 +99,10 @@ function GameController(playerOne = username, playerTwo = "Computer"){
         {name: playerTwo, choice: 2}
     ];
 
-    //need a function here to determine who's turn it currently is.
+    //variable to determine who's turn it currently is
     let currentPlayer = players[0];
 
+    //Function to switch player turn after every turn
     const switchPlayers = () => {
         if(currentPlayer === players[0]){
             currentPlayer = players[1];
@@ -97,11 +111,30 @@ function GameController(playerOne = username, playerTwo = "Computer"){
         }
     }
 
+    //function to retrieve who's turn it currently is
     const getCurrentPlayer = () => currentPlayer;
 
-    
+
+
+    const displayTurn = () => {
+        console.log(`It's ${getCurrentPlayer().name}'s turn!`)
+        // We will display via DOM manipulation who's turn it is later
+    };
+
     // function to play a single round (1 turn) and check if there's a winner yet.
-    // if there is no winner, then switch who's turn it is and return the updated board.
+    const playTurn = () => {
+        //both called to switch players and display whos turn it is after every turn
+        switchPlayers();
+        displayTurn();
+    };
+    
+    const checkWinner = () => {
+        // check who winner is
+        // if there IS a winner, display modal congratulating winner; then reset the board.
+        // if there is no winner, then switch who's turn it is and return the updated board.
+    }
+
+    return { }
 
 }
 
@@ -109,13 +142,18 @@ function GameController(playerOne = username, playerTwo = "Computer"){
 
 
 // CHRONOLOGICAL ORDER:
-// Page loads with gameboard pre-made in background
+// Page loads with gameboard pre-made in background with choice modal overlayed.
+
 // Prompt user with a modal to enter their "player name" and then pick whether they are X's or O's
+
 // Assign proper selection to user and the opposite to the computer
+
 // The game begins, all gameboard squares/inputs need to be emptied.
-// When clicked, each square needs to check whether that square is already populated
+
+// When clicked, each button needs to check whether that square is already populated
 // if already populated, then return an error and end execution
 // if not already populated, store value of who clicked it (user OR computer)
+
 // Need logic for how the game functions. Check if three squares in a row are checked.
 // End the game when user/computer get's 3 in a row, OR, when there are no more available spaces on the board (A TIE GAME)
 // Return a result of who won, display a reset/play again button
