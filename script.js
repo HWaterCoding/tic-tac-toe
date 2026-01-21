@@ -11,7 +11,7 @@ const Gameboard = (function(){
     const columns = 3;
     const board = [];
 
-    // create a 3x3 grid of buttons and append them to the gridBoard div to create the tic-tac-toe board
+    // create 3 arrays with 3 values of 0 for the default board
     for(let i = 0; i < rows; i++){
         const row = [];
         for(let j = 0; j < columns; j++){
@@ -24,17 +24,12 @@ const Gameboard = (function(){
 
     // retrieve current state of gameboard
     function getBoard(){
-        return board;
+        return board.map(row => [...row]);
     };
 
     // Alter the value of the square on the board clicked somehow
-    function placeChoice(){
-        if(choice === 0){
-
-        } 
-        else {
-            return;
-        }
+    function placeChoice(row, col, playerValue){
+        
     };
     //pass in the selected square/cell and check it's value.
     //if it's value is === 0, then we can change it.
@@ -46,7 +41,7 @@ const Gameboard = (function(){
     // const printBoard = 
 
     function resetBoard(){
-
+        board.forEach(row => row.fill(0));
     }
 
     
@@ -90,13 +85,10 @@ function GameController(playerOne = usernameInput, playerTwo = "Computer"){
     //to take username input from html and store as playerOne name
     // const username = document.getElementById("username");
 
-    // retrieve current status of gameboard()
-    const board = Gameboard();
-
     // default value of square will be 0. When clicked by playerOne, it will be 1. When clicked by playerTwo, it will be 2.
     const players = [
-        {name: playerOne, choice: 1},
-        {name: playerTwo, choice: 2}
+        {name: playerOne, value: 1},
+        {name: playerTwo, value: 2}
     ];
 
     //variable to determine who's turn it currently is
