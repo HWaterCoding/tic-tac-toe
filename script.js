@@ -27,9 +27,14 @@ const Gameboard = (function(){
         return board.map(row => [...row]);
     };
 
-    // Alter the value of the square on the board clicked somehow
+    // determine if move is valid or not, if it is, store playerValue as value in [row] array index
     function placeChoice(row, col, playerValue){
-        
+        if(board[row][col] !== 0){
+            return false;
+        } else {
+            board[row][col] = playerValue;
+            return true;
+        }
     };
     //pass in the selected square/cell and check it's value.
     //if it's value is === 0, then we can change it.
