@@ -36,20 +36,11 @@ const Gameboard = (function(){
             return true;
         }
     };
-    //pass in the selected square/cell and check it's value.
-    //if it's value is === 0, then we can change it.
-    //add an if() that if it's !not === 0, return nothing and end the exeuction.
 
-
-    // console.log() current value and status of board to the console so we can see how its working
-    // (WILL DELETE ONCE UI CREATED)
-    // const printBoard = 
-
+    // iterate through every index of [row] arrays and reset to 0 to clear the board and start new game.
     function resetBoard(){
         board.forEach(row => row.fill(0));
-    }
-
-    
+    }    
 
     return { getBoard, placeChoice, resetBoard };
 
