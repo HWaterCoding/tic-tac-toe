@@ -24,7 +24,7 @@ const Gameboard = (function(){
         return board.map(row => [...row]);
     };
 
-    // determine if move is valid or not, if it is, store playerValue as value in [row] array index
+    // determine if move is valid or not, if it is, change value of square to playerValue
     function placeChoice(row, col, playerValue){
         if(board[row][col] !== 0){
             return false;
@@ -48,7 +48,8 @@ function RenderBoard(){
 
 };
 
-// Factory to control the flow/logic of the game
+// Factory to control value of squares
+// Need to pass in the value of the square selected 
 function Squares(){
     //default value of any square on the board will be 0 until changed.
     let squareValue = 0;
@@ -59,15 +60,13 @@ function Squares(){
     }
 
     //retrieve current value of square
-    const getValue = () => value;
+    const getValue = () => squareValue;
 
     return { changeValue, getValue };
 }
 
-function GameController(playerOne = usernameInput, playerTwo = "Computer"){
-    //to take username input from html and store as playerOne name
-    // const username = document.getElementById("username");
-
+//change "user" here to variable for username input on starting modal
+function GameController(playerOne = "user", playerTwo = "Computer"){
     //create player objects and assign them a value
     const players = [
         {name: playerOne, value: 1},
@@ -77,58 +76,64 @@ function GameController(playerOne = usernameInput, playerTwo = "Computer"){
     //variable to determine who's turn it currently is
     let currentPlayer = players[0];
 
-    //Function to switch player turn after every turn
+    //function to switch player turn after every turn
     const switchPlayers = () => {
-        if(currentPlayer === players[0]){
-            currentPlayer = players[1];
-        } else {
-            currentPlayer = players[0];
-        }
+        currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
     }
 
     //function to retrieve who's turn it currently is
     const getCurrentPlayer = () => currentPlayer;
 
+    //function to display who's current turn it is
     const displayTurn = () => {
         console.log(`It's ${getCurrentPlayer().name}'s turn!`)
-        // We will display via DOM manipulation who's turn it is later
     };
 
     // function to play a single round (1 turn) and check if there's a winner yet.
     const playTurn = () => {
-        //both called to switch players and display whos turn it is after every turn
-        switchPlayers();
-        displayTurn();
+        const validMove = Gameboard.placeChoice();
+        if(!validMove){
+            console.log("ERROR. That square is already taken!");
+        } else{
+            checkWinner();
+            switchPlayers();
+            displayTurn();
+        }
     };
     
     const checkWinner = () => {
-        if(index){
+        if(winner){
             //Check if three squares in a row have the same value.
-            //display winner msg + end game.
-            //reset board.
-        } else if (notindex){
-            // alternative win con
+            //display winner msg + end game + prompt ending modal.
+            //WE WONT ACTUALLY RESET BOARD HERE, WE WILL PROMPT A MODAL AT END OF GAME TO PLAY AGAIN, AND ONLY IF CLICKED, WILL WE THEN RESET BOARD. THAT WILL GO IN AN EVENT LISTENER AFTERWARD ONCE WE INCLUDE THE DOM
+            
         } else {
             // don't end game and simply switch turns.
         }
     }
 
-    return { }
-
+    return { playTurn }
 }
 
 
 
 
-// CHRONOLOGICAL ORDER:
-// Page loads with gameboard pre-made in background with choice modal overlayed.
-
-// Prompt user with a modal to enter their "player name" and then pick whether they are X's or O's
-
-// Assign proper selection to user and the opposite to the computer
 
 
-// End the game when user/computer get's 3 in a row, OR, when there are no more available spaces on the board (A TIE GAME)
-// Return a result of who won, display a reset/play again button
-// Clear the board and allow the user to re-pick whether they are X's and O's
-// (the game begins again from the top)
+// LOGIC changes:
+// (Gameboard is finished, so we can call it accordingly now.)
+// Focus on GameController logic:
+// 
+
+
+
+
+// DOM changes: 
+// Page needs to load with choice modal overlayed on to page and accept user inputs (username/tokenChoice)
+// Store their selected username and token choice in variables 
+// Create the board in HTML as it doesn't need to change, and then only append the values of the array to it
+// When a user clicks one of the squares, change it's value and append the correct token to display.
+// Create error message to be appended to display, above board, if user select square already taken.
+// Create modal to appear overlayed when game is finished with appropriate win/lose message
+// Add a reset/new game button to ending modal to close overlay and reset the value of board array
+// 
