@@ -5,7 +5,7 @@ const oBtn = document.getElementById("oRadioButton");
 const usernameInput = document.getElementById("username");
 
 //object to store the gameboard itself as an array
-const Gameboard = (function(){
+function Gameboard(){
     const rows = 3;
     const columns = 3;
     const board = [];
@@ -41,7 +41,7 @@ const Gameboard = (function(){
 
     return { getBoard, placeChoice, resetBoard };
 
-})();
+};
 
 //Factory to render the board to the DOM
 function RenderBoard(){
@@ -67,6 +67,8 @@ function Squares(){
 
 //change "user" here to variable for username input on starting modal
 function GameController(playerOne = "user", playerTwo = "Computer"){
+    const board = Gameboard();
+
     //create player objects and assign them a value
     const players = [
         {name: playerOne, value: 1},
@@ -90,12 +92,14 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     };
 
     // function to play a single round (1 turn) and check if there's a winner yet.
-    const playTurn = () => {
-        const validMove = Gameboard.placeChoice();
+    const playTurn = (row, col) => {
+        const validMove = board.placeChoice(row, col, currentPlayer.value);
         if(!validMove){
             console.log("ERROR. That square is already taken!");
+            return;
         } else{
-            checkWinner();
+            console.log(board.getBoard());
+            // checkWinner();
             switchPlayers();
             displayTurn();
         }
@@ -115,7 +119,7 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     return { playTurn }
 }
 
-
+const game = GameController();
 
 
 
