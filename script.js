@@ -65,6 +65,7 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     const getCurrentPlayer = () => currentPlayer;
 
     //function to display who's current turn it is
+    //THIS NEEDS TO MOVE TO ScreenController() IIFE AFTERWARDS, AS IT'S DOM MANIPULATION!!!
     const displayTurn = () => {
         console.log(`It's ${getCurrentPlayer().name}'s turn!`)
     };
@@ -77,24 +78,63 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
             return;
         } else{
             console.log(board.getBoard());
-            // checkWinner();
-            switchPlayers();
-            displayTurn();
+            const isThereAWinner = checkWinner();
+            if(isThereAWinner){
+                console.log(`Congratulations! ${getCurrentPlayer().name} is the winner!`)
+                board.resetBoard();
+            } else {
+                switchPlayers();
+                displayTurn(); //move this to screenController() later
+            }
         }
     };
     
     const checkWinner = () => {
-        if(winner){
-            //Check if three squares in a row have the same value.
-            //display winner msg + end game + prompt ending modal.
-            //WE WONT ACTUALLY RESET BOARD HERE, WE WILL PROMPT A MODAL AT END OF GAME TO PLAY AGAIN, AND ONLY IF CLICKED, WILL WE THEN RESET BOARD. THAT WILL GO IN AN EVENT LISTENER AFTERWARD ONCE WE INCLUDE THE DOM
-            
-        } else {
-            // don't end game and simply switch turns.
+        let currentBoard = Gameboard.getBoard();
+
+        //hard-code algorithim for all potential winning patterns on the board.
+        const winningPatterns = [
+            //rows
+            [[0, 0], [0, 1], [0, 2]],
+            [[1, 0], [1, 1], [1, 2]],
+            [[2, 0], [2, 1], [2, 2]],
+            //columns
+            [[0, 0], [1, 0], [2, 0]],
+            [[0, 1], [1, 1], [2, 1]],
+            [[0, 2], [1, 2], [2, 2]],
+            //diagonals
+            [[0, 0], [1, 1], [2, 2]],
+            [[0, 2], [1, 1], [2, 0]],
+        ]
+
+        //loop through all winning patterns 
+        for(let pattern of winningPatterns){
+            //CAN FIX THIS WITH ARRAY DESTRUCTURING I THINK TO MAKE LESS UGLY!
+            const square1 = pattern[0];
+            const square2 = pattern[1];
+            const square3 = pattern[2];
+
+            const row1 = square1[0];
+            const col1 = square1[1];
+
+            const row2 = square2[0];
+            const col2 = square2[1];
+
+            const row3 = square3[0];
+            const col3 = square3[1];
+
+            const value1 = currentBoard[row1][col1];
+            const value2 = currentBoard[row2][col2];
+            const value3 = currentBoard[row3][col3];
+
+            if(value1 !== 0 && value1 === value2 && value1 === value3){
+                return true;
+            }
         }
+        return false;
     }
 
-    return { playTurn }
+    return { getCurrentPlayer, playTurn, checkWinner }
 }
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
