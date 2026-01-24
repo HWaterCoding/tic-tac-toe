@@ -43,28 +43,6 @@ function Gameboard(){
 
 };
 
-//Factory to render the board to the DOM
-function RenderBoard(){
-
-};
-
-// Factory to control value of squares
-// Need to pass in the value of the square selected 
-function Squares(){
-    //default value of any square on the board will be 0 until changed.
-    let squareValue = 0;
-
-    //function to take player choice as param and change value of cell to the value of the player
-    const changeValue = (playerValue) => {
-        squareValue = playerValue;
-    }
-
-    //retrieve current value of square
-    const getValue = () => squareValue;
-
-    return { changeValue, getValue };
-}
-
 //change "user" here to variable for username input on starting modal
 function GameController(playerOne = "user", playerTwo = "Computer"){
     const board = Gameboard();
@@ -119,9 +97,16 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     return { playTurn }
 }
 
-const game = GameController();
+//Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
+const RenderBoard = (function(){
+    const game = GameController();
 
+})();
 
+(function RenderBoard(){
+    const game = GameController();
+
+})();
 
 
 // LOGIC changes:
@@ -133,6 +118,8 @@ const game = GameController();
 
 
 // DOM changes: 
+// Page first loads a modal with two buttons: (Player vs. CPU, OR, Player vs. Player)
+// After selecting an option, usernameInput and tokenChoice input loads on second modal. 
 // Page needs to load with choice modal overlayed on to page and accept user inputs (username/tokenChoice)
 // Store their selected username and token choice in variables 
 // Create the board in HTML as it doesn't need to change, and then only append the values of the array to it
@@ -141,3 +128,24 @@ const game = GameController();
 // Create modal to appear overlayed when game is finished with appropriate win/lose message
 // Add a reset/new game button to ending modal to close overlay and reset the value of board array
 // 
+
+
+
+
+
+// // Factory to control value of squares
+// // Need to pass in the value of the square selected 
+// function Squares(){
+//     //default value of any square on the board will be 0 until changed.
+//     let squareValue = 0;
+
+//     //function to take player choice as param and change value of cell to the value of the player
+//     const changeValue = (playerValue) => {
+//         squareValue = playerValue;
+//     }
+
+//     //retrieve current value of square
+//     const getValue = () => squareValue;
+
+//     return { changeValue, getValue };
+// }
