@@ -40,7 +40,6 @@ function Gameboard(){
     }    
 
     return { getBoard, placeChoice, resetBoard };
-
 };
 
 //change "user" here to variable for username input on starting modal
@@ -81,16 +80,16 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
             const isThereAWinner = checkWinner();
             if(isThereAWinner){
                 console.log(`Congratulations! ${getCurrentPlayer().name} is the winner!`)
-                board.resetBoard();
+                board.resetBoard(); //we actually won't reset the board here, and instead prompt the end modal
             } else {
                 switchPlayers();
-                displayTurn(); //move this to screenController() later
+                displayTurn(); //move this to screenController() later, or access through object // screen.displayTurn() for example
             }
         }
     };
     
     const checkWinner = () => {
-        let currentBoard = Gameboard.getBoard();
+        let currentBoard = board.getBoard();
 
         //hard-code algorithim for all potential winning patterns on the board.
         const winningPatterns = [
@@ -109,25 +108,29 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 
         //loop through all winning patterns 
         for(let pattern of winningPatterns){
-            //CAN FIX THIS WITH ARRAY DESTRUCTURING I THINK TO MAKE LESS UGLY!
-            const square1 = pattern[0];
-            const square2 = pattern[1];
-            const square3 = pattern[2];
+            // dumbed-down version of the array destructuring
 
-            const row1 = square1[0];
-            const col1 = square1[1];
+            // const square1 = pattern[0];
+            // const square2 = pattern[1];
+            // const square3 = pattern[2];
 
-            const row2 = square2[0];
-            const col2 = square2[1];
+            // const row1 = square1[0];
+            // const col1 = square1[1];
 
-            const row3 = square3[0];
-            const col3 = square3[1];
+            // const row2 = square2[0];
+            // const col2 = square2[1];
 
-            const value1 = currentBoard[row1][col1];
-            const value2 = currentBoard[row2][col2];
-            const value3 = currentBoard[row3][col3];
+            // const row3 = square3[0];
+            // const col3 = square3[1];
 
-            if(value1 !== 0 && value1 === value2 && value1 === value3){
+            //array destructuring
+            const [[row1, col1], [row2, col2], [row3, col3]] = pattern;
+
+            const square1 = currentBoard[row1][col1];
+            const square2 = currentBoard[row2][col2];
+            const square3 = currentBoard[row3][col3];
+
+            if(square1 !== 0 && square1 === square2 && square1 === square3){
                 return true;
             }
         }
