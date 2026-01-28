@@ -10,17 +10,15 @@
 <body>
     
     <div id="overlay">
-
         <!-- First modal to be displayed, prompting PvP or PvE selection -->
         <div id="modal1">
             <div>
                 <h2>Player vs. Player</h2>
-                <img src="images/player-avatar.png" alt="Human Player">
+                <button id="PvPBtn"><img src="images/player-avatar.png" alt="Human Player"></button>
             </div>
-            <h2>OR</h2>
             <div>
                 <h2>Player vs. Computer</h2>
-                <img src="images/player-vs-computer.webp" alt="Computer Player">
+                <button id="PvEBtn"><img src="images/player-vs-computer.webp" alt="Computer Player"></button>
             </div>
         </div>
 
@@ -33,6 +31,8 @@
             <label for="player2">Player2 Name:</label>
             <input type="text" id="player2" required>
             <p>Player 2 will be O.</p>
+
+            <button class="playBtn">Ready!</button>
         </div>
 
         <!-- Second modal to display if "Player vs. Computer is selected" -->
@@ -47,19 +47,21 @@
                 <label for="oRadioButton">O</label>
                 <input type="radio" name="xOrO" id="oRadioButton">
             </div>
+
+            <button class="playBtn">Ready!</button>
         </div>
 
-        
+        <!-- Final modal to be displayed when a game concludes -->
+        <div id="modal4">
+            <p>Winning message placeholder</p>
+            <button>Play Again?</button>
+        </div>
     </div>
 
+    <!-- Actual gameboard to be played on and appended to. -->
     <div class="gridBoard">
 
     </div>
-
-
-    <!-- Add second modal here for when the game is over to restart/reset the game -->
-
-
 
     <script src="script.js"></script>
 

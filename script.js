@@ -1,3 +1,15 @@
+//modals to be displayed
+const modal1 = document.getElementById("modal1");
+// if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
+const modal2 = document.getElementById("modal2");
+// when .playBtn pressed, close all modals and start game.
+const modal3 = document.getElementById("modal3");
+// when .playBtn pressed, close all modals and start game.
+const modal4 = document.getElementById("modal4");
+// if() play again btn pressed, play another game.
+
+
+
 
 const gridBoard = document.getElementById("gridBoard");
 const xBtn = document.getElementById("xRadioButton");
@@ -146,6 +158,7 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 
 })();
 
+//if checkWinner() returns true, then append the winning message onto modal4
 
 
 
