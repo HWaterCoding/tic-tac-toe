@@ -24,14 +24,16 @@
 
         <!-- Second modal to display if "Player vs. Player is selected" -->
         <div id="modal2">
-            <label for="player1">Player1 Name:</label>
-            <input type="text" id="player1" required>
-            <p>Player 1 will be X.</p>
-
-            <label for="player2">Player2 Name:</label>
-            <input type="text" id="player2" required>
-            <p>Player 2 will be O.</p>
-
+            <div>
+                <label for="player1">Player1 Name:</label>
+                <input type="text" id="player1" required>
+                <p>Player 1 will be X.</p>
+            </div>
+            <div>
+                <label for="player2">Player2 Name:</label>
+                <input type="text" id="player2" required>
+                <p>Player 2 will be O.</p>
+            </div>
             <button class="playBtn">Ready!</button>
         </div>
 
@@ -54,7 +56,7 @@
         <!-- Final modal to be displayed when a game concludes -->
         <div id="modal4">
             <p>Winning message placeholder</p>
-            <button>Play Again?</button>
+            <button id="playAgainBtn">Play Again?</button>
         </div>
     </div>
 

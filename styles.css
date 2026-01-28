@@ -12,9 +12,11 @@
     z-index: 2;
 }
 
+
+/* Modal1 will be displayed on page load, and be switched to "none" when an option is selected */
 #modal1{
-    /* display: none; */
-    display: flex;
+    display: none;
+    /* display: flex; */
     background-color: rgb(32, 171, 218);
     gap: 100px;
 }
@@ -38,19 +40,42 @@
     border-radius: 50%;
 }
 
+
+
+/* modal2 will be displayed as "none" by default, and switched to "flex" when modal1 PvPBtn is pressed */
 #modal2{
     display: none;
+    /* display: flex; */
+    gap: 30px;
     background-color: lightyellow;
 }
 
+#modal2 div{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    border: 1px solid black;
+}
+
+#modal2 div p,
+#modal2 div label{
+    text-align: center;
+}
+
+
+
+
+
+
+/* modal3 will be displayed as "none" by default, and switched to "flex" when modal1 PvEBtn is pressed */
 #modal3{
-    display: none;
+    /* display: none; */
+    display: flex;
     z-index: 1;
-    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: rgb(0, 170, 226);
     padding: 20px;
 }
 
@@ -59,6 +84,12 @@
     gap: 30px;
 }
 
+
+
+
+
+
+/* modal4 will be displayed as "none" by default and switch to "flex" when checkWinner() returns "true" */
 #modal4{
     display: none;
 }
