@@ -141,21 +141,10 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 }
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
-const RenderBoard = (function(){
-    const game = GameController();
-
-})();
-
 (function RenderBoard(){
     const game = GameController();
 
 })();
-
-
-// LOGIC changes:
-// (Gameboard is finished, so we can call it accordingly now.)
-// Focus on GameController logic:
-// 
 
 
 

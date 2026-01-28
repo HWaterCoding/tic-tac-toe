@@ -10,7 +10,33 @@
 <body>
     
     <div id="overlay">
-        <div id="modal">
+
+        <!-- First modal to be displayed, prompting PvP or PvE selection -->
+        <div id="modal1">
+            <div>
+                <h2>Player vs. Player</h2>
+                <img src="images/player-avatar.png" alt="Human Player">
+            </div>
+            <h2>OR</h2>
+            <div>
+                <h2>Player vs. Computer</h2>
+                <img src="images/player-vs-computer.webp" alt="Computer Player">
+            </div>
+        </div>
+
+        <!-- Second modal to display if "Player vs. Player is selected" -->
+        <div id="modal2">
+            <label for="player1">Player1 Name:</label>
+            <input type="text" id="player1" required>
+            <p>Player 1 will be X.</p>
+
+            <label for="player2">Player2 Name:</label>
+            <input type="text" id="player2" required>
+            <p>Player 2 will be O.</p>
+        </div>
+
+        <!-- Second modal to display if "Player vs. Computer is selected" -->
+        <div id="modal3">
             <label for="username">Your Name:</label>
             <input type="text" id="username" required>
 
@@ -22,6 +48,8 @@
                 <input type="radio" name="xOrO" id="oRadioButton">
             </div>
         </div>
+
+        
     </div>
 
     <div class="gridBoard">
