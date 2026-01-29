@@ -1,5 +1,6 @@
 :root{
     --blue-theme: rgb(0, 255, 255);
+    --blue-theme-faded: rgb(0, 255, 255, 0.5);
     --gradient-theme: linear-gradient(45deg, rgb(0, 0, 0), rgb(60, 70, 80));
 
 }
@@ -34,8 +35,8 @@ header{
 /* Overlay will be display:flex, then hidden after either modal2 OR modal3 are completed.*/
 /* Overlay will reappear as display:flex when checkWinner() returns true and the game ends with modal4 */
 #overlay{
-    display: none;
-    /* display: flex; */
+    /* display: none; */
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -53,22 +54,32 @@ header{
 #modal1{
     display: none;
     /* display: flex; */
-    background-color: rgb(32, 171, 218);
+    background-color: var(--blue-theme-faded);
+    box-shadow: 0 0 15px rgba(31, 255, 255, 0.808);
     gap: 100px;
 }
 
 #modal1 div{
+    width: 350px;
     margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #modal1 div h2{
     text-align: center;
+    font-size: 36px;
 }
 
 #modal1 div button{
-    background-color: rgb(0, 170, 226);
+    background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+#modal1 div button:hover{
+    transform: scale(1.1);
 }
 
 #modal1 div img{
