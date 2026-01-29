@@ -11,7 +11,7 @@ const modal4 = document.getElementById("modal4");
 
 
 
-const gridBoard = document.getElementById("gridBoard");
+const gameboard = document.getElementById("gameboard");
 const xBtn = document.getElementById("xRadioButton");
 const oBtn = document.getElementById("oRadioButton");
 const usernameInput = document.getElementById("username");

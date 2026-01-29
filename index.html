@@ -5,65 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="styles.css">
-    
+    <script src="https://kit.fontawesome.com/00250d9010.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
-    <div id="overlay">
-        <!-- First modal to be displayed, prompting PvP or PvE selection -->
-        <div id="modal1">
-            <div>
-                <h2>Player vs. Player</h2>
-                <button id="PvPBtn"><img src="images/player-avatar.png" alt="Human Player"></button>
+    <header>
+        <h1>Tic-Tac-Toe</h1>
+    </header>
+
+    <main>
+        <div id="overlay">
+            <!-- First modal to be displayed, prompting PvP or PvE selection -->
+            <div id="modal1">
+                <div>
+                    <h2>Player vs. Player</h2>
+                    <button id="PvPBtn"><img src="images/player-avatar.png" alt="Human Player"></button>
+                </div>
+                <div>
+                    <h2>Player vs. Computer</h2>
+                    <button id="PvEBtn"><img src="images/player-vs-computer.webp" alt="Computer Player"></button>
+                </div>
             </div>
-            <div>
-                <h2>Player vs. Computer</h2>
-                <button id="PvEBtn"><img src="images/player-vs-computer.webp" alt="Computer Player"></button>
+    
+            <!-- Second modal to display if "Player vs. Player is selected" -->
+            <div id="modal2">
+                <div>
+                    <label for="player1">Player1 Name:</label>
+                    <input type="text" id="player1" required>
+                    <p>Player 1 will be X.</p>
+                </div>
+                <div>
+                    <label for="player2">Player2 Name:</label>
+                    <input type="text" id="player2" required>
+                    <p>Player 2 will be O.</p>
+                </div>
+                <button class="playBtn">Ready!</button>
+            </div>
+    
+            <!-- Second modal to display if "Player vs. Computer is selected" -->
+            <div id="modal3">
+                <label for="username">Your Name:</label>
+                <input type="text" id="username" required>
+    
+                <p>Do you want to be X's or O's?</p>
+                <div id="radioBtns">
+                    <label for="xRadioButton">X</label>
+                    <input type="radio" name="xOrO" id="xRadioButton">
+                    <label for="oRadioButton">O</label>
+                    <input type="radio" name="xOrO" id="oRadioButton">
+                </div>
+    
+                <button class="playBtn">Ready!</button>
+            </div>
+    
+            <!-- Final modal to be displayed when a game concludes -->
+            <div id="modal4">
+                <p>"Winning message placeholder"</p>
+                <button id="playAgainBtn">Play Again?</button>
             </div>
         </div>
 
-        <!-- Second modal to display if "Player vs. Player is selected" -->
-        <div id="modal2">
-            <div>
-                <label for="player1">Player1 Name:</label>
-                <input type="text" id="player1" required>
-                <p>Player 1 will be X.</p>
-            </div>
-            <div>
-                <label for="player2">Player2 Name:</label>
-                <input type="text" id="player2" required>
-                <p>Player 2 will be O.</p>
-            </div>
-            <button class="playBtn">Ready!</button>
+        <p id="turnText">Placeholder "current turn" text</p>
+
+        <!-- Actual gameboard to be played on and appended to. -->        
+        <div id="gameboard">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
         </div>
 
-        <!-- Second modal to display if "Player vs. Computer is selected" -->
-        <div id="modal3">
-            <label for="username">Your Name:</label>
-            <input type="text" id="username" required>
-
-            <p>Do you want to be X's or O's?</p>
-            <div id="radioBtns">
-                <label for="xRadioButton">X</label>
-                <input type="radio" name="xOrO" id="xRadioButton">
-                <label for="oRadioButton">O</label>
-                <input type="radio" name="xOrO" id="oRadioButton">
-            </div>
-
-            <button class="playBtn">Ready!</button>
+        <div id="scores">
+            <p id="p1Score">Player 1 score placeholder</p>
+            <p id="p2Score">Player 2 score placeholder</p>
         </div>
+    </main>
 
-        <!-- Final modal to be displayed when a game concludes -->
-        <div id="modal4">
-            <p>Winning message placeholder</p>
-            <button id="playAgainBtn">Play Again?</button>
-        </div>
-    </div>
-
-    <!-- Actual gameboard to be played on and appended to. -->
-    <div class="gridBoard">
-
-    </div>
+    <footer>
+        <p>Copyright &copy; HWaterCoding</p>
+        <a href="https://github.com/HWaterCoding" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </footer>
 
     <script src="script.js"></script>
 

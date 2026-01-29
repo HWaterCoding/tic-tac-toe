@@ -1,6 +1,41 @@
-#overlay{
-    /* display: none; */
+:root{
+    --blue-theme: rgb(0, 255, 255);
+    --gradient-theme: linear-gradient(45deg, rgb(0, 0, 0), rgb(60, 70, 80));
+
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+html,
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
     display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, rgb(0, 0, 0), rgb(60, 70, 80));
+}
+
+header{
+    color: var(--blue-theme);
+    font-size: 2.6rem;
+    text-align: center;
+}
+
+                                
+
+/* Overlay will be display:flex, then hidden after either modal2 OR modal3 are completed.*/
+/* Overlay will reappear as display:flex when checkWinner() returns true and the game ends with modal4 */
+#overlay{
+    display: none;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -13,7 +48,8 @@
 }
 
 
-/* Modal1 will be displayed on page load, and be switched to "none" when an option is selected */
+
+/* Modal1 will be display:flex by default, and be switched to "none" when an option is selected */
 #modal1{
     display: none;
     /* display: flex; */
@@ -69,8 +105,8 @@
 
 /* modal3 will be displayed as "none" by default, and switched to "flex" when modal1 PvEBtn is pressed */
 #modal3{
-    /* display: none; */
-    display: flex;
+    display: none;
+    /* display: flex; */
     z-index: 1;
     flex-direction: column;
     justify-content: center;
@@ -92,17 +128,79 @@
 /* modal4 will be displayed as "none" by default and switch to "flex" when checkWinner() returns "true" */
 #modal4{
     display: none;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 50px;
+    background-color: rgb(0, 170, 226);
+}
+
+#playAgainBtn{
+    padding: 10px 30px;
+    background-color: red;
+}
+
+
+
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    gap: 40px;
+}
+
+#turnText{
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+#gameboard{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+#gameboard button{
+    /* border: 2px solid white; */
+    background-color: transparent;
+    width: 200px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+
+#scores{
+    display: flex;
+    gap: 100px;
+}
+
+#scores p{
+    color: #fff;
 }
 
 
 
 
 
+footer{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--blue-theme);
+    font-weight: bolder;
+}
 
+footer a{
+    color: var(--blue-theme);
+}
 
-
-/* .square{
-    background-color: silver;
-    border: 2px solid black;
-
-} */
+footer a:hover{
+    transform: scale(1.4);
+}
