@@ -1,20 +1,55 @@
 //modals to be displayed
 const modal1 = document.getElementById("modal1");
+const PvPBtn = document.getElementById("PvPBtn");
+PvPBtn.addEventListener("click", () =>{
+    // load modal2, hide modal1.
+    modal1.style.display = "none";
+    modal2.style.display = "grid";
+});
+const PvEBtn = document.getElementById("PvEBtn");
+PvEBtn.addEventListener("click", () =>{
+    modal1.style.display = "none";
+    modal3.style.display = "flex";
+    // load modal3, hide modal1.
+});
+
 // if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
 const modal2 = document.getElementById("modal2");
+const player1User = document.getElementById("player1");
+const player2User = document.getElementById("player2");
+const modal2PlayBtn = document.getElementById("modal2PlayBtn");
+modal2PlayBtn.addEventListener("click", () => {
+    // start game using info from modal2
+    modal2.style.display = "none";
+    overlay.style.display = "none";
+});
+
 // when .playBtn pressed, close all modals and start game.
 const modal3 = document.getElementById("modal3");
-// when .playBtn pressed, close all modals and start game.
+const usernameInput = document.getElementById("usernameInput");
+const xBtn = document.getElementById("xRadioButton");
+if(xBtn.checked){};
+const oBtn = document.getElementById("oRadioButton");
+if(oBtn.checked){};
+const modal3PlayBtn = document.getElementById("modal3PlayBtn");
+modal3PlayBtn.addEventListener("click", () => {
+    // start game using info from modal3
+    modal3.style.display = "none";
+    overlay.style.display = "none";
+});
+
+
+// when playAgainBtn pressed, reset all data and start game.
 const modal4 = document.getElementById("modal4");
-// if() play again btn pressed, play another game.
-
-
-
+const playAgainBtn = document.getElementById("playAgainBtn");
+playAgainBtn.addEventListener("click", () =>{
+    // if() play again btn pressed, play another game and reset everything
+    overlay.stlye.display = "none";
+    modal4.style.display = "none";
+});
 
 const gameboard = document.getElementById("gameboard");
-const xBtn = document.getElementById("xRadioButton");
-const oBtn = document.getElementById("oRadioButton");
-const usernameInput = document.getElementById("username");
+
 
 //object to store the gameboard itself as an array
 function Gameboard(){
@@ -120,22 +155,7 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 
         //loop through all winning patterns 
         for(let pattern of winningPatterns){
-            // dumbed-down version of the array destructuring
-
-            // const square1 = pattern[0];
-            // const square2 = pattern[1];
-            // const square3 = pattern[2];
-
-            // const row1 = square1[0];
-            // const col1 = square1[1];
-
-            // const row2 = square2[0];
-            // const col2 = square2[1];
-
-            // const row3 = square3[0];
-            // const col3 = square3[1];
-
-            //array destructuring
+           
             const [[row1, col1], [row2, col2], [row3, col3]] = pattern;
 
             const square1 = currentBoard[row1][col1];
@@ -162,17 +182,12 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 
 
 
-// DOM changes: 
-// Page first loads a modal with two buttons: (Player vs. CPU, OR, Player vs. Player)
-// After selecting an option, usernameInput and tokenChoice input loads on second modal. 
-// Page needs to load with choice modal overlayed on to page and accept user inputs (username/tokenChoice)
-// Store their selected username and token choice in variables 
-// Create the board in HTML as it doesn't need to change, and then only append the values of the array to it
-// When a user clicks one of the squares, change it's value and append the correct token to display.
-// Create error message to be appended to display, above board, if user select square already taken.
-// Create modal to appear overlayed when game is finished with appropriate win/lose message
-// Add a reset/new game button to ending modal to close overlay and reset the value of board array
-// 
+
+
+
+
+
+
 
 
 

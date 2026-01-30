@@ -45,15 +45,15 @@ header{
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 2;
 }
+
 
 
 
 /* Modal1 will be display:flex by default, and be switched to "none" when an option is selected */
 #modal1{
-    display: none;
-    /* display: flex; */
+    /* display: none; */
+    display: flex;
     background-color: var(--blue-theme-faded);
     box-shadow: var(--blue-theme-modal-shadow);
     gap: 100px;
@@ -177,7 +177,7 @@ header{
 /* modal4 will be displayed as "none" by default and switch to "flex" when checkWinner() returns "true" */
 #modal4{
     display: none;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -227,6 +227,10 @@ main{
     width: 200px;
     aspect-ratio: 1/1;
     cursor: pointer;
+}
+
+#gameboard button:hover{
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.158), var(--blue-theme-faded));
 }
 
 #scores{
