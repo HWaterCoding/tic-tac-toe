@@ -146,10 +146,6 @@ const screenController = (function(){
     const xBtn = document.getElementById("xRadioButton");
     const oBtn = document.getElementById("oRadioButton");
     const modal3PlayBtn = document.getElementById("modal3PlayBtn");
-    //modal4 elements
-    const modal4 = document.getElementById("modal4");
-    const playAgainBtn = document.getElementById("playAgainBtn");
-
 
     // if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
     PvPBtn.addEventListener("click", () =>{
@@ -176,12 +172,11 @@ const screenController = (function(){
         modal3.style.display = "none";
         overlay.style.display = "none";
     });
-    
-    // when playAgainBtn pressed, reset the board but keep score + player names, etc...
-    playAgainBtn.addEventListener("click", () =>{
-        // if() play again btn pressed, play another game and reset everything
-        overlay.stlye.display = "none";
-        modal4.style.display = "none";
+
+    resetBoardBtn.addEventListener("click", () =>{
+        //reset all values of boardSquares back to 0.
+        //reset the currentPlayer to player1
+        //clear the winning message
     });
 
 
@@ -231,7 +226,6 @@ const screenController = (function(){
 //3. the username/computer display and score incrementing underneath.
 //4. 
 
-
 // remove modal4 and simply have the user restart the game with the resetBoardBtn
 //at the end of a game, when there's a winner, all that should happen is the winners score is incremented
 // and "turnText" can be converted into a displayed winning message
@@ -266,3 +260,17 @@ const screenController = (function(){
 
 //     return { changeValue, getValue };
 // }
+
+
+
+
+// // when playAgainBtn pressed, reset the board but keep score + player names, etc...
+//     playAgainBtn.addEventListener("click", () =>{
+//         // if() play again btn pressed, play another game and reset everything
+//         overlay.stlye.display = "none";
+//         modal4.style.display = "none";
+//     });
+
+ //modal4 elements
+    // const modal4 = document.getElementById("modal4");
+    // const playAgainBtn = document.getElementById("playAgainBtn");
