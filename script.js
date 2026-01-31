@@ -1,55 +1,3 @@
-//modals to be displayed
-const modal1 = document.getElementById("modal1");
-const PvPBtn = document.getElementById("PvPBtn");
-PvPBtn.addEventListener("click", () =>{
-    // load modal2, hide modal1.
-    modal1.style.display = "none";
-    modal2.style.display = "grid";
-});
-const PvEBtn = document.getElementById("PvEBtn");
-PvEBtn.addEventListener("click", () =>{
-    modal1.style.display = "none";
-    modal3.style.display = "flex";
-    // load modal3, hide modal1.
-});
-
-// if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
-const modal2 = document.getElementById("modal2");
-const player1User = document.getElementById("player1");
-const player2User = document.getElementById("player2");
-const modal2PlayBtn = document.getElementById("modal2PlayBtn");
-modal2PlayBtn.addEventListener("click", () => {
-    // start game using info from modal2
-    modal2.style.display = "none";
-    overlay.style.display = "none";
-});
-
-// when .playBtn pressed, close all modals and start game.
-const modal3 = document.getElementById("modal3");
-const usernameInput = document.getElementById("usernameInput");
-const xBtn = document.getElementById("xRadioButton");
-if(xBtn.checked){};
-const oBtn = document.getElementById("oRadioButton");
-if(oBtn.checked){};
-const modal3PlayBtn = document.getElementById("modal3PlayBtn");
-modal3PlayBtn.addEventListener("click", () => {
-    // start game using info from modal3
-    modal3.style.display = "none";
-    overlay.style.display = "none";
-});
-
-
-// when playAgainBtn pressed, reset all data and start game.
-const modal4 = document.getElementById("modal4");
-const playAgainBtn = document.getElementById("playAgainBtn");
-playAgainBtn.addEventListener("click", () =>{
-    // if() play again btn pressed, play another game and reset everything
-    overlay.stlye.display = "none";
-    modal4.style.display = "none";
-});
-
-const gameboard = document.getElementById("gameboard");
-
 
 //object to store the gameboard itself as an array
 function Gameboard(){
@@ -110,12 +58,6 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     //function to retrieve who's turn it currently is
     const getCurrentPlayer = () => currentPlayer;
 
-    //function to display who's current turn it is
-    //THIS NEEDS TO MOVE TO ScreenController() IIFE AFTERWARDS, AS IT'S DOM MANIPULATION!!!
-    const displayTurn = () => {
-        console.log(`It's ${getCurrentPlayer().name}'s turn!`)
-    };
-
     // function to play a single round (1 turn) and check if there's a winner yet.
     const playTurn = (row, col) => {
         const validMove = board.placeChoice(row, col, currentPlayer.value);
@@ -127,18 +69,18 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
             const isThereAWinner = checkWinner();
             if(isThereAWinner){
                 console.log(`Congratulations! ${getCurrentPlayer().name} is the winner!`)
-                board.resetBoard(); //we actually won't reset the board here, and instead prompt the end modal
+                board.resetBoard(); //we actually won't reset the board here, and instead show overlay + modal4
             } else {
                 switchPlayers();
-                displayTurn(); //move this to screenController() later, or access through object // screen.displayTurn() for example
+                // renderBoard.displayTurn();
             }
-        }
+        };
     };
-    
+
     const checkWinner = () => {
         let currentBoard = board.getBoard();
 
-        //hard-code algorithim for all potential winning patterns on the board.
+        //algorithim for all potential winning patterns on the board.
         const winningPatterns = [
             //rows
             [[0, 0], [0, 1], [0, 2]],
@@ -173,12 +115,96 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 }
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
-(function RenderBoard(){
+const screenController = (function(){
+    //cached DOM elements
     const game = GameController();
+    const boardSquares = document.getElementsByClassName("boardSquare");
+    const turnText = document.getElementById("turnText");
+    const gameboard = document.getElementById("gameboard");
+    const p1Score = document.getElementById("p1Score");
+    const p2Score = document.getElementById("p2Score");
+    //modal1 elements
+    const modal1 = document.getElementById("modal1");
+    const PvPBtn = document.getElementById("PvPBtn");
+    const PvEBtn = document.getElementById("PvEBtn");
+    //modal2 elements
+    const modal2 = document.getElementById("modal2");
+    const player1User = document.getElementById("player1");
+    const player2User = document.getElementById("player2");
+    const modal2PlayBtn = document.getElementById("modal2PlayBtn");
+    //modal3 elements
+    const modal3 = document.getElementById("modal3");
+    const usernameInput = document.getElementById("usernameInput");
+    const xBtn = document.getElementById("xRadioButton");
+    const oBtn = document.getElementById("oRadioButton");
+    const modal3PlayBtn = document.getElementById("modal3PlayBtn");
+    //modal4 elements
+    const modal4 = document.getElementById("modal4");
+    const playAgainBtn = document.getElementById("playAgainBtn");
 
+
+    // if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
+    PvPBtn.addEventListener("click", () =>{
+        // load modal2, hide modal1.
+        modal1.style.display = "none";
+        modal2.style.display = "grid";
+    });
+    PvEBtn.addEventListener("click", () =>{
+        modal1.style.display = "none";
+        modal3.style.display = "flex";
+        // load modal3, hide modal1.
+    });
+    
+    modal2PlayBtn.addEventListener("click", () => {
+        // start game using info from modal2
+        modal2.style.display = "none";
+        overlay.style.display = "none";
+    });
+    
+    if(xBtn.checked){};
+    if(oBtn.checked){};
+    modal3PlayBtn.addEventListener("click", () => {
+        // start game using info from modal3
+        modal3.style.display = "none";
+        overlay.style.display = "none";
+    });
+    
+    
+    // when playAgainBtn pressed, reset all data and start game.
+    playAgainBtn.addEventListener("click", () =>{
+        // if() play again btn pressed, play another game and reset everything
+        overlay.stlye.display = "none";
+        modal4.style.display = "none";
+    });
+
+
+
+    const updateGame = () =>{
+        boardSquares.innerHTML = "";
+
+        const board = game.getBoard();
+        const currentPlayer = game.getCurrentPlayer();
+
+        turnText.textContent = `It's ${currentPlayer.name}'s turn!`
+
+        boardSquares.forEach(square =>{
+            square.addEventListener("click", () =>{
+                const row = square.dataset.row;
+                const col = square.dataset.col;
+
+                const result = game.playTurn(row, col);
+
+
+            });
+        });
+    };
+
+    return {  }
 })();
 
-//if checkWinner() returns true, then append the winning message onto modal4
+
+
+
 
 
 
