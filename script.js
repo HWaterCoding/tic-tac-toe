@@ -62,19 +62,25 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     const playTurn = (row, col) => {
         const validMove = board.placeChoice(row, col, currentPlayer.value);
         if(!validMove){
-            console.log("ERROR. That square is already taken!");
-            return;
-        } else{
-            console.log(board.getBoard());
-            const isThereAWinner = checkWinner();
-            if(isThereAWinner){
-                console.log(`Congratulations! ${getCurrentPlayer().name} is the winner!`)
-                board.resetBoard(); //we actually won't reset the board here, and instead show overlay + modal4
-            } else {
-                switchPlayers();
-                // renderBoard.displayTurn();
+            return{
+                valid: false
+            };
+        } 
+        const isThereAWinner = checkWinner();
+        if(isThereAWinner){
+            return{
+                valid: true,
+                winner: currentPlayer,
+                board: board.getBoard()
             }
         };
+        switchPlayers();
+        return{
+            valid: true,
+            winner: null,
+            board: board.getBoard(),
+            //retrieve current player maybe?
+        }
     };
 
     const checkWinner = () => {
@@ -116,10 +122,11 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
 const screenController = (function(){
-    //cached DOM elements
     const game = GameController();
-    const boardSquares = document.getElementsByClassName("boardSquare");
+    //cached DOM board-related elements
+    const boardSquares = [...document.getElementsByClassName("boardSquare")];
     const turnText = document.getElementById("turnText");
+    const errorText = document.getElementById("errorText");
     const gameboard = document.getElementById("gameboard");
     const p1Score = document.getElementById("p1Score");
     const p2Score = document.getElementById("p2Score");
@@ -169,7 +176,6 @@ const screenController = (function(){
         overlay.style.display = "none";
     });
     
-    
     // when playAgainBtn pressed, reset all data and start game.
     playAgainBtn.addEventListener("click", () =>{
         // if() play again btn pressed, play another game and reset everything
@@ -198,8 +204,6 @@ const screenController = (function(){
             });
         });
     };
-
-    return {  }
 })();
 
 
