@@ -116,12 +116,12 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
         }
         return false;
     }
-
-    return { getCurrentPlayer, playTurn, checkWinner }
+    return { getCurrentPlayer, playTurn }
 }
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
 const screenController = (function(){
+    //game state
     const game = GameController();
     //cached DOM board-related elements
     const boardSquares = [...document.getElementsByClassName("boardSquare")];
@@ -130,6 +130,7 @@ const screenController = (function(){
     const gameboard = document.getElementById("gameboard");
     const p1Score = document.getElementById("p1Score");
     const p2Score = document.getElementById("p2Score");
+    const resetBoardBtn = document.getElementById("resetBoard");
     //modal1 elements
     const modal1 = document.getElementById("modal1");
     const PvPBtn = document.getElementById("PvPBtn");

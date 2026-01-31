@@ -242,7 +242,24 @@ main{
     color: #fff;
 }
 
+#resetBoard{
+    background-color: transparent;
+    color: var(--blue-theme);
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 1.4rem;
+    padding: 10px 20px;
+    margin: 10px;
+}
 
+#resetBoard:hover{
+    background-color: var(--blue-theme-faded);
+}
+
+#resetBoard:active{
+    background-color: var(--blue-theme);
+    color: var(--gradient-theme);
+}
 
 
 
