@@ -177,13 +177,12 @@ const screenController = (function(){
         overlay.style.display = "none";
     });
     
-    // when playAgainBtn pressed, reset all data and start game.
+    // when playAgainBtn pressed, reset the board but keep score + player names, etc...
     playAgainBtn.addEventListener("click", () =>{
         // if() play again btn pressed, play another game and reset everything
         overlay.stlye.display = "none";
         modal4.style.display = "none";
     });
-
 
 
     const updateGame = () =>{
@@ -198,18 +197,45 @@ const screenController = (function(){
             square.addEventListener("click", () =>{
                 const row = square.dataset.row;
                 const col = square.dataset.col;
-
+                //we also still need to append x's and o's visually to each square when clicked
                 const result = game.playTurn(row, col);
+                if(!result.valid){
+                    //display errorText message and do nothing else
+                    errorText.textContent = "Sorry. That square has already been taken!";
+                }
+                if(!result.winner){
+                    //update the board because the move is still valid
+                    //switch the current players turn text
+                    //(both of these things already happen in updateGame())
 
+                } else {
+                    //update the board
+                    turnText.textContent = `${currentPlayer.name} has won the game!`
+                    //increase the winners score.
+                }
 
             });
         });
     };
+    //initial rendering of everything
+    updateGame();
 })();
 
 
 
 
+
+//to-do:
+//1. reposition score elements in HTML
+//2. There should be no text, and only updated via JS.
+//3. the username/computer display and score incrementing underneath.
+//4. 
+
+
+// remove modal4 and simply have the user restart the game with the resetBoardBtn
+//at the end of a game, when there's a winner, all that should happen is the winners score is incremented
+// and "turnText" can be converted into a displayed winning message
+//no more moves will be allowed anyway, then user has to click resetBoardBtn to start another game.
 
 
 
