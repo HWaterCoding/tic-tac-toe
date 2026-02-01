@@ -187,10 +187,8 @@ const screenController = (function(){
         //reset all values of boardSquares back to 0.
         //reset the currentPlayer to player1
         //clear the winning message
-        updateGame();
     });
 
-    
 
     //function to render the current board state to the DOM
     const renderBoard = () => {
@@ -214,13 +212,16 @@ const screenController = (function(){
         turnText.textContent = `It's ${currentPlayer.name}'s turn!`
     }
 
-    const handleSquareClick = (square) =>{
+    const handleSquareClick = (event) =>{
+        const square = event.target;
+
         const row = square.dataset.row;
         const col = square.dataset.col;
         const result = game.playTurn(row, col);
 
         if(!result.valid){
             errorText.textContent = "Sorry. That square has already been taken!";
+            return;
         }
 
         errorText.textContent = "";
@@ -234,9 +235,8 @@ const screenController = (function(){
         renderTurn();
     };
 
-    //attach listener to each square that will handle clicking it 
     boardSquares.forEach((square) =>{
-        square.addEventListener("click", handleSquareClick(square))
+        square.addEventListener("click", handleSquareClick)
     });
 
     //initial rendering of everything
@@ -261,7 +261,7 @@ const screenController = (function(){
 
 
 
-
+//WE NEED TO PREVENT CLICKING OF SQUARES IF THERE IS ALREADY A WINNER!!!
 
 
 
