@@ -1,11 +1,8 @@
-
-//object to store the gameboard itself as an array
 function Gameboard(){
     const rows = 3;
     const columns = 3;
     const board = [];
 
-    // create 3 arrays with 3 values of 0 for the default board
     for(let i = 0; i < rows; i++){
         const row = [];
         for(let j = 0; j < columns; j++){
@@ -14,12 +11,10 @@ function Gameboard(){
         board.push(row);
     }
         
-    // retrieve current state of gameboard
     function getBoard(){
         return board.map(row => [...row]);
     };
 
-    // determine if move is valid or not, if it is, change value of square to playerValue
     function placeChoice(row, col, playerValue){
         if(board[row][col] !== 0){
             return false;
@@ -29,7 +24,7 @@ function Gameboard(){
         }
     };
 
-    // iterate through every index of [row] arrays and reset to 0 to clear the board and start new game.
+    //MIGHT HAVE TO MOVE THIS TO GameController() 
     function resetBoard(){
         board.forEach(row => row.fill(0));
     }    
@@ -44,6 +39,7 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
     // const increaseScore = () => {
     //     currentPlayer.score++;
     // }
+
     //create player objects and assign them a value
     // maybe add a "score" key as well to easily increment and append to the text?
     const players = [
@@ -184,9 +180,10 @@ const screenController = (function(){
 
     resetBoardBtn.addEventListener("click", () =>{
         game.resetBoard();
-        //reset all values of boardSquares back to 0.
+        renderBoard();
+        renderTurn();
+        //WHEN THE BOARD IS RESET VIA BUTTON, WE NEED TO SWITCH PLAYER BACK TO PLAYER1
         //reset the currentPlayer to player1
-        //clear the winning message
     });
 
 
@@ -224,7 +221,7 @@ const screenController = (function(){
             return;
         }
 
-        errorText.textContent = "";
+        errorText.textContent = "Great move!";
         renderBoard();
 
         if(result.winner){
@@ -262,7 +259,6 @@ const screenController = (function(){
 
 
 //WE NEED TO PREVENT CLICKING OF SQUARES IF THERE IS ALREADY A WINNER!!!
-
 
 
 
