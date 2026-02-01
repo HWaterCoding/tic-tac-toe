@@ -190,10 +190,12 @@ const screenController = (function(){
         updateGame();
     });
 
+    
+
     //function to render the current board state to the DOM
     const renderBoard = () => {
         const board = game.getBoard();
-        
+
         boardSquares.forEach((square, index) => {
             const row = Math.floor(index / 3);
             const col = index % 3;
@@ -205,49 +207,41 @@ const screenController = (function(){
             "";
         });
     };
-    renderBoard();
 
     //function to render the current players turn to the DOM
     const renderTurn = () => {
         const currentPlayer = game.getCurrentPlayer();
         turnText.textContent = `It's ${currentPlayer.name}'s turn!`
     }
-    renderTurn();
 
+    const handleSquareClick = (square) =>{
+        const row = square.dataset.row;
+        const col = square.dataset.col;
+        const result = game.playTurn(row, col);
 
-    const renderError = () => {
+        if(!result.valid){
+            errorText.textContent = "Sorry. That square has already been taken!";
+        }
 
-    }
+        errorText.textContent = "";
+        renderBoard();
 
-    const updateGame = () =>{
-        const currentPlayer = game.getCurrentPlayer();
+        if(result.winner){
+            turnText.textContent = `${result.winner.name} has won the game!`
+            return;
+        }
 
-        boardSquares.forEach(square =>{
-            square.addEventListener("click", () =>{
-                const row = square.dataset.row;
-                const col = square.dataset.col;
-                //we also still need to append x's and o's visually to each square when clicked
-                const result = game.playTurn(row, col);
-                if(!result.valid){
-                    //display errorText message and do nothing else
-                    errorText.textContent = "Sorry. That square has already been taken!";
-                }
-                if(!result.winner){
-                    //update the board because the move is still valid
-                    //switch the current players turn text
-                    //(both of these things already happen in updateGame())
-
-                } else {
-                    //update the board
-                    turnText.textContent = `${currentPlayer.name} has won the game!`
-                    //increase the winners score.
-                }
-
-            });
-        });
+        renderTurn();
     };
+
+    //attach listener to each square that will handle clicking it 
+    boardSquares.forEach((square) =>{
+        square.addEventListener("click", handleSquareClick(square))
+    });
+
     //initial rendering of everything
-    updateGame();
+    renderBoard();
+    renderTurn();
 })();
 
 
