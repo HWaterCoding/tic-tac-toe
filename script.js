@@ -41,7 +41,11 @@ function Gameboard(){
 function GameController(playerOne = "user", playerTwo = "Computer"){
     const board = Gameboard();
 
+    // const increaseScore = () => {
+    //     currentPlayer.score++;
+    // }
     //create player objects and assign them a value
+    // maybe add a "score" key as well to easily increment and append to the text?
     const players = [
         {name: playerOne, value: 1},
         {name: playerTwo, value: 2}
@@ -80,6 +84,7 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
             winner: null,
             board: board.getBoard(),
             //retrieve current player maybe?
+            //nextPlayer: currentPlayer
         }
     };
 
@@ -116,7 +121,12 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
         }
         return false;
     }
-    return { getCurrentPlayer, playTurn }
+    return { 
+             getCurrentPlayer,
+             playTurn,
+             getBoard: board.getBoard,
+             resetBoard: board.resetBoard
+           }
 }
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
@@ -127,7 +137,6 @@ const screenController = (function(){
     const boardSquares = [...document.getElementsByClassName("boardSquare")];
     const turnText = document.getElementById("turnText");
     const errorText = document.getElementById("errorText");
-    const gameboard = document.getElementById("gameboard");
     const p1Score = document.getElementById("p1Score");
     const p2Score = document.getElementById("p2Score");
     const resetBoardBtn = document.getElementById("resetBoard");
@@ -174,19 +183,44 @@ const screenController = (function(){
     });
 
     resetBoardBtn.addEventListener("click", () =>{
+        game.resetBoard();
         //reset all values of boardSquares back to 0.
         //reset the currentPlayer to player1
         //clear the winning message
+        updateGame();
     });
 
+    //function to render the current board state to the DOM
+    const renderBoard = () => {
+        const board = game.getBoard();
+        
+        boardSquares.forEach((square, index) => {
+            const row = Math.floor(index / 3);
+            const col = index % 3;
+            const value = board[row][col];
+
+            square.textContent =
+            value === 1 ? "X" :
+            value === 2 ? "O" :
+            "";
+        });
+    };
+    renderBoard();
+
+    //function to render the current players turn to the DOM
+    const renderTurn = () => {
+        const currentPlayer = game.getCurrentPlayer();
+        turnText.textContent = `It's ${currentPlayer.name}'s turn!`
+    }
+    renderTurn();
+
+
+    const renderError = () => {
+
+    }
 
     const updateGame = () =>{
-        boardSquares.innerHTML = "";
-
-        const board = game.getBoard();
         const currentPlayer = game.getCurrentPlayer();
-
-        turnText.textContent = `It's ${currentPlayer.name}'s turn!`
 
         boardSquares.forEach(square =>{
             square.addEventListener("click", () =>{
