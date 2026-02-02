@@ -84,6 +84,17 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
             };
         };
 
+        const tie = checkTie();
+        if(tie){
+            gameOver = true;
+            return{
+                valid: true,
+                winner: null,
+                tie: true,
+                board: board.getBoard()
+            }
+        }
+
         switchPlayers();
         return{
             valid: true,
@@ -124,6 +135,18 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
             }
         }
         return false;
+    }
+
+    const checkTie = () => {
+        const currentBoard = board.getBoard();
+        for(let row of currentBoard){
+            for(let cell of row){
+                if(cell === 0){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     const resetGame = () => {
@@ -251,6 +274,11 @@ const screenController = (function(){
             return;
         }
 
+        if(result.tie){
+            turnText.textContent = "It's a tie game!"
+            return;
+        }
+
         renderTurn();
     };
 
@@ -258,7 +286,6 @@ const screenController = (function(){
         square.addEventListener("click", handleSquareClick)
     });
 
-    //initial rendering of everything
     renderBoard();
     renderTurn();
 })();
@@ -279,9 +306,6 @@ const screenController = (function(){
 //no more moves will be allowed anyway, then user has to click resetBoardBtn to start another game.
 
 
-
-//have to fix who's turn it is text
-//have to account for tie games when all squares are filled.
 
 
 
