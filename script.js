@@ -201,7 +201,6 @@ const screenController = (function(){
         errorText.textContent = "";
     });
     
-    const currentPlayer = game.getCurrentPlayer();
 
     //function to render the current board state to the DOM
     const renderBoard = () => {
@@ -221,6 +220,7 @@ const screenController = (function(){
 
     //function to render the current players turn to the DOM
     const renderTurn = () => {
+        const currentPlayer = game.getCurrentPlayer();
         turnText.textContent = `It's ${currentPlayer.name}'s turn!`
     };
 
@@ -236,14 +236,14 @@ const screenController = (function(){
         const result = game.playTurn(row, col);
         if(!result.valid){
             if(result.reason === "gameOver"){
-                renderErrorMsg(`The game is already over! ${currentPlayer.name} has won!`)
+                renderErrorMsg(`The game is already over! Please press "Reset Board" to play again!`)
                 return;
             }
             renderErrorMsg("Sorry. That square has already been taken!")
             return;
         }
 
-        errorText.textContent = "";
+        renderErrorMsg();
         renderBoard();
 
         if(result.winner){
@@ -273,14 +273,15 @@ const screenController = (function(){
 //3. the username/computer display and score incrementing underneath.
 //4. 
 
-// remove modal4 and simply have the user restart the game with the resetBoardBtn
+
 //at the end of a game, when there's a winner, all that should happen is the winners score is incremented
 // and "turnText" can be converted into a displayed winning message
 //no more moves will be allowed anyway, then user has to click resetBoardBtn to start another game.
 
 
 
-//WE NEED TO PREVENT CLICKING OF SQUARES IF THERE IS ALREADY A WINNER!!!
+//have to fix who's turn it is text
+//have to account for tie games when all squares are filled.
 
 
 
