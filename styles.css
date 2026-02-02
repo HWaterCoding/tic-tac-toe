@@ -238,7 +238,7 @@ main{
     cursor: pointer;
     color: var(--blue-theme);
     font-weight: 900;
-    font-size: 3.8rem;
+    font-size: 7rem;
 }
 
 #gameboard button:hover{

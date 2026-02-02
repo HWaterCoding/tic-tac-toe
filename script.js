@@ -33,7 +33,7 @@ function Gameboard(){
 };
 
 //change "user" here to variable for username input on starting modal
-function GameController(playerOne = "user", playerTwo = "Computer"){
+function GameController(playerOne = "player1", playerTwo = "player2"){
     const board = Gameboard();
 
     // const increaseScore = () => {
@@ -117,11 +117,19 @@ function GameController(playerOne = "user", playerTwo = "Computer"){
         }
         return false;
     }
+
+    const resetGame = () => {
+        board.resetBoard();
+        currentPlayer = players[0];
+
+    };
+
     return { 
              getCurrentPlayer,
              playTurn,
              getBoard: board.getBoard,
-             resetBoard: board.resetBoard
+             resetBoard: board.resetBoard,
+             resetGame
            }
 }
 
@@ -179,13 +187,12 @@ const screenController = (function(){
     });
 
     resetBoardBtn.addEventListener("click", () =>{
-        game.resetBoard();
+        game.resetGame();
         renderBoard();
         renderTurn();
-        //WHEN THE BOARD IS RESET VIA BUTTON, WE NEED TO SWITCH PLAYER BACK TO PLAYER1
-        //reset the currentPlayer to player1
+        errorText.textContent = "";
     });
-
+    
 
     //function to render the current board state to the DOM
     const renderBoard = () => {
@@ -221,7 +228,7 @@ const screenController = (function(){
             return;
         }
 
-        errorText.textContent = "Great move!";
+        errorText.textContent = "";
         renderBoard();
 
         if(result.winner){
