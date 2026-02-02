@@ -47,41 +47,49 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
         {name: playerTwo, value: 2}
     ];
 
-    //variable to determine who's turn it currently is
     let currentPlayer = players[0];
 
-    //function to switch player turn after every turn
     const switchPlayers = () => {
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
     }
 
-    //function to retrieve who's turn it currently is
     const getCurrentPlayer = () => currentPlayer;
+
+    let gameOver = false;
 
     // function to play a single round (1 turn) and check if there's a winner yet.
     const playTurn = (row, col) => {
+        if(gameOver){
+            return{
+                valid: false,
+                winner: null,
+                reason: "gameOver"
+            };
+        };
+
         const validMove = board.placeChoice(row, col, currentPlayer.value);
         if(!validMove){
             return{
                 valid: false
             };
-        } 
+        };
+
         const isThereAWinner = checkWinner();
         if(isThereAWinner){
+            gameOver = true;
             return{
                 valid: true,
                 winner: currentPlayer,
                 board: board.getBoard()
-            }
+            };
         };
+
         switchPlayers();
         return{
             valid: true,
             winner: null,
             board: board.getBoard(),
-            //retrieve current player maybe?
-            //nextPlayer: currentPlayer
-        }
+        };
     };
 
     const checkWinner = () => {
@@ -121,7 +129,7 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
     const resetGame = () => {
         board.resetBoard();
         currentPlayer = players[0];
-
+        gameOver = false;
     };
 
     return { 
@@ -193,6 +201,7 @@ const screenController = (function(){
         errorText.textContent = "";
     });
     
+    const currentPlayer = game.getCurrentPlayer();
 
     //function to render the current board state to the DOM
     const renderBoard = () => {
@@ -212,9 +221,12 @@ const screenController = (function(){
 
     //function to render the current players turn to the DOM
     const renderTurn = () => {
-        const currentPlayer = game.getCurrentPlayer();
         turnText.textContent = `It's ${currentPlayer.name}'s turn!`
-    }
+    };
+
+    const renderErrorMsg = (message = "") =>{
+        errorText.textContent = message;
+    };
 
     const handleSquareClick = (event) =>{
         const square = event.target;
@@ -222,9 +234,12 @@ const screenController = (function(){
         const row = square.dataset.row;
         const col = square.dataset.col;
         const result = game.playTurn(row, col);
-
         if(!result.valid){
-            errorText.textContent = "Sorry. That square has already been taken!";
+            if(result.reason === "gameOver"){
+                renderErrorMsg(`The game is already over! ${currentPlayer.name} has won!`)
+                return;
+            }
+            renderErrorMsg("Sorry. That square has already been taken!")
             return;
         }
 
