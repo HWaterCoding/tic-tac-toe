@@ -168,6 +168,7 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
 const screenController = (function(){
     //game state
     const game = GameController();
+    const gameboard = document.getElementById("gameboard");
     //cached DOM board-related elements
     const boardSquares = [...document.getElementsByClassName("boardSquare")];
     const turnText = document.getElementById("turnText");
@@ -222,6 +223,9 @@ const screenController = (function(){
         renderBoard();
         renderTurn();
         errorText.textContent = "";
+        gameboard.classList.remove("tieGameBoard");
+        gameboard.classList.remove("winningGameboard");
+        gameboard.classList.add("neutralGameboard");
     });
     
 
@@ -271,11 +275,15 @@ const screenController = (function(){
 
         if(result.winner){
             turnText.textContent = `${result.winner.name} has won the game!`
+            gameboard.classList.remove("neutralGameboard");
+            gameboard.classList.add("winningGameboard");
             return;
         }
 
         if(result.tie){
             turnText.textContent = "It's a tie game!"
+            gameboard.classList.remove("neutralGameboard");
+            gameboard.classList.add("tieGameBoard");
             return;
         }
 
@@ -301,11 +309,9 @@ const screenController = (function(){
 //4. 
 
 
-//at the end of a game, when there's a winner, all that should happen is the winners score is incremented
-// and "turnText" can be converted into a displayed winning message
-//no more moves will be allowed anyway, then user has to click resetBoardBtn to start another game.
 
-
+//Change player names to be responsive to user input in form.
+//add score to player Objects to increment when a player wins a game
 
 
 
@@ -332,16 +338,3 @@ const screenController = (function(){
 //     return { changeValue, getValue };
 // }
 
-
-
-
-// // when playAgainBtn pressed, reset the board but keep score + player names, etc...
-//     playAgainBtn.addEventListener("click", () =>{
-//         // if() play again btn pressed, play another game and reset everything
-//         overlay.stlye.display = "none";
-//         modal4.style.display = "none";
-//     });
-
- //modal4 elements
-    // const modal4 = document.getElementById("modal4");
-    // const playAgainBtn = document.getElementById("playAgainBtn");
