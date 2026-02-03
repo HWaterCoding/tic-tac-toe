@@ -24,7 +24,6 @@ function Gameboard(){
         }
     };
 
-    //MIGHT HAVE TO MOVE THIS TO GameController() 
     function resetBoard(){
         board.forEach(row => row.fill(0));
     }    
@@ -33,7 +32,6 @@ function Gameboard(){
 };
 
 
-//change "user" here to variable for username input on starting modal
 function GameController(playerOneName, playerTwoName){
     const board = Gameboard();
 
@@ -52,7 +50,6 @@ function GameController(playerOneName, playerTwoName){
 
     let gameOver = false;
 
-    // function to play a single round (1 turn) and check if there's a winner yet.
     const playTurn = (row, col) => {
         if(gameOver){
             return{
@@ -160,7 +157,7 @@ function GameController(playerOneName, playerTwoName){
            }
 }
 
-//Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
+
 const ScreenController = (function(){
     //game state
     let game = GameController();
@@ -176,6 +173,7 @@ const ScreenController = (function(){
     const modal1 = document.getElementById("modal1");
     const PvPBtn = document.getElementById("PvPBtn");
     const PvEBtn = document.getElementById("PvEBtn");
+    let isPvE = false;
     //modal2 elements
     const modal2 = document.getElementById("modal2");
     const player1User = document.getElementById("player1");
@@ -195,7 +193,7 @@ const ScreenController = (function(){
         modal2.style.display = "grid";
     });
     PvEBtn.addEventListener("click", () =>{
-        //call PvE logic
+        isPvE = true;
         modal1.style.display = "none";
         modal3.style.display = "flex";
     });
@@ -212,15 +210,19 @@ const ScreenController = (function(){
         renderBoard();
         renderTurn();
     });
-    
-    if(xBtn.checked){};
-    if(oBtn.checked){};
 
     modal3PlayBtn.addEventListener("click", () => {
-        const playerOneName = player1User.value || "Player";
+        const playerOneName = usernameInput.value || "Player";
         const cpuName = "Computer";
 
         game = GameController(playerOneName, cpuName);
+
+        if(xBtn.checked){
+
+        };
+        if(oBtn.checked){
+
+        };
         
         modal3.style.display = "none";
         overlay.style.display = "none";
@@ -258,6 +260,16 @@ const ScreenController = (function(){
 
     const renderErrorMsg = (message = "") =>{
         errorText.textContent = message;
+    };
+
+    const computerMove = () =>{
+        //retrieve current boardstate
+        //pick random empty square from current boardstate.
+        //call game.playTurn() with random square and store in "result"
+        //render the board
+        //check the result of computers move for winner/tie (dont really need tie because computers move is never last)
+        //if winner, end game. 
+        //if no winner, update turnText and end
     };
 
     const handleSquareClick = (event) =>{
@@ -298,6 +310,11 @@ const ScreenController = (function(){
         }
 
         renderTurn();
+
+        if(isPvE){
+            computerMove();
+            renderTurn();
+        };
     };
 
     boardSquares.forEach((square) =>{
@@ -314,7 +331,6 @@ const ScreenController = (function(){
 
 //to-do:
 //1. reposition score elements in HTML
-//2. Change player names to be responsive to user input in form.
 //3. Make it so that when an error message is appended, the layout of the page does not shift!!
 
 
