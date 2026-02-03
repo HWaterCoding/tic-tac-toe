@@ -32,13 +32,14 @@ function Gameboard(){
     return { getBoard, placeChoice, resetBoard };
 };
 
+
 //change "user" here to variable for username input on starting modal
-function GameController(playerOne = "player1", playerTwo = "player2"){
+function GameController(playerOneName, playerTwoName){
     const board = Gameboard();
 
     const players = [
-        {name: playerOne, value: 1, score: 0},
-        {name: playerTwo, value: 2, score: 0}
+        {id: 0, name: playerOneName, value: 1, score: 0},
+        {id: 1, name: playerTwoName, value: 2, score: 0}
     ];
 
     let currentPlayer = players[0];
@@ -162,7 +163,7 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
 const ScreenController = (function(){
     //game state
-    const game = GameController();
+    let game = GameController();
     const gameboard = document.getElementById("gameboard");
     //cached DOM board-related elements
     const boardSquares = [...document.getElementsByClassName("boardSquare")];
@@ -189,28 +190,43 @@ const ScreenController = (function(){
 
     // if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
     PvPBtn.addEventListener("click", () =>{
-        // load modal2, hide modal1.
+        //call PvP logic
         modal1.style.display = "none";
         modal2.style.display = "grid";
     });
     PvEBtn.addEventListener("click", () =>{
+        //call PvE logic
         modal1.style.display = "none";
         modal3.style.display = "flex";
-        // load modal3, hide modal1.
     });
     
     modal2PlayBtn.addEventListener("click", () => {
-        // start game using info from modal2
+        const playerOneName = player1User.value || "Player 1";
+        const playerTwoName = player2User.value || "Player 2";
+
+        game = GameController(playerOneName, playerTwoName);
+
         modal2.style.display = "none";
         overlay.style.display = "none";
+        
+        renderBoard();
+        renderTurn();
     });
     
     if(xBtn.checked){};
     if(oBtn.checked){};
+
     modal3PlayBtn.addEventListener("click", () => {
-        // start game using info from modal3
+        const playerOneName = player1User.value || "Player";
+        const cpuName = "Computer";
+
+        game = GameController(playerOneName, cpuName);
+        
         modal3.style.display = "none";
         overlay.style.display = "none";
+
+        renderBoard();
+        renderTurn();
     });
 
     resetBoardBtn.addEventListener("click", () =>{
@@ -223,8 +239,6 @@ const ScreenController = (function(){
         gameboard.classList.add("neutralGameboard");
     });
     
-
-    //function to render the current board state to the DOM
     const renderBoard = () => {
         const board = game.getBoard();
 
@@ -233,14 +247,10 @@ const ScreenController = (function(){
             const col = index % 3;
             const value = board[row][col];
 
-            square.textContent =
-            value === 1 ? "X" :
-            value === 2 ? "O" :
-            "";
+            square.textContent = value === 1 ? "X" : value === 2 ? "O" : "";
         });
     };
 
-    //function to render the current players turn to the DOM
     const renderTurn = () => {
         const currentPlayer = game.getCurrentPlayer();
         turnText.textContent = `It's ${currentPlayer.name}'s turn!`
@@ -272,8 +282,7 @@ const ScreenController = (function(){
             turnText.textContent = `${result.winner.name} has won the game!`
             gameboard.classList.remove("neutralGameboard");
             gameboard.classList.add("winningGameboard");
-            const currentPlayer = game.getCurrentPlayer();
-            if(currentPlayer.value === 1){
+            if(result.winner.id === 0){
                 p1Score.textContent = `${result.winner.name}: ${result.winner.score}`
             } else{
                 p2Score.textContent = `${result.winner.name}: ${result.winner.score}`
@@ -305,15 +314,8 @@ const ScreenController = (function(){
 
 //to-do:
 //1. reposition score elements in HTML
-//2. There should be no text, and only updated via JS.
-//3. the username/computer display and score incrementing underneath.
-//4. 
-
-
-
-//Change player names to be responsive to user input in form.
-//add score to player Objects to increment when a player wins a game
-
+//2. Change player names to be responsive to user input in form.
+//3. Make it so that when an error message is appended, the layout of the page does not shift!!
 
 
 
