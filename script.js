@@ -36,15 +36,9 @@ function Gameboard(){
 function GameController(playerOne = "player1", playerTwo = "player2"){
     const board = Gameboard();
 
-    // const increaseScore = () => {
-    //     currentPlayer.score++;
-    // }
-
-    //create player objects and assign them a value
-    // maybe add a "score" key as well to easily increment and append to the text?
     const players = [
-        {name: playerOne, value: 1},
-        {name: playerTwo, value: 2}
+        {name: playerOne, value: 1, score: 0},
+        {name: playerTwo, value: 2, score: 0}
     ];
 
     let currentPlayer = players[0];
@@ -77,6 +71,7 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
         const isThereAWinner = checkWinner();
         if(isThereAWinner){
             gameOver = true;
+            currentPlayer.score++;
             return{
                 valid: true,
                 winner: currentPlayer,
@@ -165,7 +160,7 @@ function GameController(playerOne = "player1", playerTwo = "player2"){
 }
 
 //Factory to render the board to the DOM (THIS WILL BE AN IIFE?)
-const screenController = (function(){
+const ScreenController = (function(){
     //game state
     const game = GameController();
     const gameboard = document.getElementById("gameboard");
@@ -277,6 +272,12 @@ const screenController = (function(){
             turnText.textContent = `${result.winner.name} has won the game!`
             gameboard.classList.remove("neutralGameboard");
             gameboard.classList.add("winningGameboard");
+            const currentPlayer = game.getCurrentPlayer();
+            if(currentPlayer.value === 1){
+                p1Score.textContent = `${result.winner.name}: ${result.winner.score}`
+            } else{
+                p2Score.textContent = `${result.winner.name}: ${result.winner.score}`
+            }
             return;
         }
 
