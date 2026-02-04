@@ -192,6 +192,7 @@ const ScreenController = (function(){
         modal1.style.display = "none";
         modal2.style.display = "grid";
     });
+
     PvEBtn.addEventListener("click", () =>{
         isPvE = true;
         modal1.style.display = "none";
@@ -263,13 +264,21 @@ const ScreenController = (function(){
     };
 
     const computerMove = () =>{
-        //retrieve current boardstate
-        //pick random empty square from current boardstate.
-        //call game.playTurn() with random square and store in "result"
-        //render the board
-        //check the result of computers move for winner/tie (dont really need tie because computers move is never last)
-        //if winner, end game. 
-        //if no winner, update turnText and end
+        const board = game.getBoard();
+        const emptySquares = [];
+
+        for (let row = 0; row < board.length; row++) {
+            for (let column = 0; column < board[row].length; column++) {
+                if (board[row][column] === 0) {
+                    emptySquares.push({ row: row, column: column });
+                }
+            }
+        }
+
+        const randomIndex = Math.floor(Math.random() * emptySquares.length);
+        const square = emptySquares[randomIndex];
+
+        return game.playTurn(square.row, square.column);  
     };
 
     const handleSquareClick = (event) =>{
@@ -277,7 +286,7 @@ const ScreenController = (function(){
 
         const row = square.dataset.row;
         const col = square.dataset.col;
-        const result = game.playTurn(row, col);
+        let result = game.playTurn(row, col);
         if(!result.valid){
             if(result.reason === "gameOver"){
                 renderErrorMsg(`The game is already over! Please press "Reset Board" to play again!`)
@@ -289,6 +298,11 @@ const ScreenController = (function(){
 
         renderErrorMsg();
         renderBoard();
+
+        if(isPvE && !result.winner){
+            result = computerMove();
+            renderBoard();
+        };
 
         if(result.winner){
             turnText.textContent = `${result.winner.name} has won the game!`
@@ -310,11 +324,6 @@ const ScreenController = (function(){
         }
 
         renderTurn();
-
-        if(isPvE){
-            computerMove();
-            renderTurn();
-        };
     };
 
     boardSquares.forEach((square) =>{
