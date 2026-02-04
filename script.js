@@ -184,7 +184,6 @@ const ScreenController = (function(){
     const usernameInput = document.getElementById("usernameInput");
     const modal3PlayBtn = document.getElementById("modal3PlayBtn");
 
-    // if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
     PvPBtn.addEventListener("click", () =>{
         modal1.style.display = "none";
         modal2.style.display = "grid";
@@ -323,36 +322,3 @@ const ScreenController = (function(){
     renderBoard();
     renderTurn();
 })();
-
-
-
-
-
-//to-do:
-//1. reposition score elements in HTML
-//3. Make it so that when an error message is appended, the layout of the page does not shift!!
-
-
-
-
-
-
-
-
-// // Factory to control value of squares
-// // Need to pass in the value of the square selected 
-// function Squares(){
-//     //default value of any square on the board will be 0 until changed.
-//     let squareValue = 0;
-
-//     //function to take player choice as param and change value of cell to the value of the player
-//     const changeValue = (playerValue) => {
-//         squareValue = playerValue;
-//     }
-
-//     //retrieve current value of square
-//     const getValue = () => squareValue;
-
-//     return { changeValue, getValue };
-// }
-
