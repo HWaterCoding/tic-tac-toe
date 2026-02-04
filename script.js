@@ -182,13 +182,10 @@ const ScreenController = (function(){
     //modal3 elements
     const modal3 = document.getElementById("modal3");
     const usernameInput = document.getElementById("usernameInput");
-    const xBtn = document.getElementById("xRadioButton");
-    const oBtn = document.getElementById("oRadioButton");
     const modal3PlayBtn = document.getElementById("modal3PlayBtn");
 
     // if() PvPBtn pressed, display modal2. if() PvEBtn pressed, display modal3.
     PvPBtn.addEventListener("click", () =>{
-        //call PvP logic
         modal1.style.display = "none";
         modal2.style.display = "grid";
     });
@@ -217,13 +214,6 @@ const ScreenController = (function(){
         const cpuName = "Computer";
 
         game = GameController(playerOneName, cpuName);
-
-        if(xBtn.checked){
-
-        };
-        if(oBtn.checked){
-
-        };
         
         modal3.style.display = "none";
         overlay.style.display = "none";
