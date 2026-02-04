@@ -256,10 +256,10 @@ const ScreenController = (function(){
         const board = game.getBoard();
         const emptySquares = [];
 
-        for (let row = 0; row < board.length; row++) {
-            for (let column = 0; column < board[row].length; column++) {
-                if (board[row][column] === 0) {
-                    emptySquares.push({ row: row, column: column });
+        for (let rowIndex = 0; rowIndex < board.length; rowIndex++) {
+            for (let colIndex = 0; colIndex < board[rowIndex].length; colIndex++) {
+                if (board[rowIndex][colIndex] === 0) {
+                    emptySquares.push({ row: rowIndex, column: colIndex });
                 }
             }
         }
