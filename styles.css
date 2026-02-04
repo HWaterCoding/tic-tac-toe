@@ -160,9 +160,9 @@ header{
 main{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 40px;
+    flex: 1;
 }
 
 #turnText{
@@ -176,6 +176,7 @@ main{
     color: red;
     text-shadow: red 2px 2px 15px;
     font-size: 1.4rem;
+    min-height: 2em;
     font-weight: 800;
     text-align: center;
 }
@@ -220,6 +221,7 @@ main{
 #scores p{
     color: #fff;
     font-size: 1.8rem;
+    min-height: 2em;
     font-weight: 800;
 }
 
